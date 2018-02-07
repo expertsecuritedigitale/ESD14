@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import re
 from scapy.all import *
 
 print "!! USE Ctrl+C FOR EXIT !!\n"
