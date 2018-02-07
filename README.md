@@ -1,6 +1,6 @@
 # ESD14
 
-PoC of malware for security studing 
+PoC of malware for security studying 
 
 #### **This project is for TESTING PURPOSES ONLY** </br>
 
