@@ -6,6 +6,7 @@
 # IMPORTS
 import socket
 import base64
+import sys
 from threading import Thread
 
 
@@ -31,22 +32,26 @@ class ClientThread(Thread):
 
 # MAIN
 if __name__ == "__main__":
-    TCP_IP = '0.0.0.0'
-    TCP_PORT = 443
-    BUFFER_SIZE = 4096
+    try:
+        TCP_IP = '0.0.0.0'
+        TCP_PORT = 443
+        BUFFER_SIZE = 4096
 
-    tcpServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    tcpServer.bind((TCP_IP, TCP_PORT))
-    threads = []
+        tcpServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        tcpServer.bind((TCP_IP, TCP_PORT))
+        threads = []
 
-    while True:
-        tcpServer.listen(4)
-        print "[*] Multithreaded server : Waiting for connections from clients..."
-        (conn, (ip, port)) = tcpServer.accept()
-        newthread = ClientThread(ip, port)
-        newthread.start()
-        threads.append(newthread)
+        while True:
+            tcpServer.listen(4)
+            print "[*] Multithreaded server : Waiting for connections from clients..."
+            (conn, (ip, port)) = tcpServer.accept()
+            newthread = ClientThread(ip, port)
+            newthread.start()
+            threads.append(newthread)
 
-    # close all threads
-    for t in threads:
-        t.join()
+        # close all threads
+        for t in threads:
+            t.join()
+    except KeyboardInterrupt:
+        print("Hasta la vista, BB")
+        sys.exit()

