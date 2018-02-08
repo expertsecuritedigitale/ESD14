@@ -10,7 +10,7 @@ import sys
 from threading import Thread
 
 
-# CLASS TO HANDLE THREADs
+# CLASS TO HANDLE THREADS
 class ClientThread(Thread):
 
     def __init__(self, ip, port):
