@@ -67,6 +67,3 @@ if __name__ == "__main__":
     while True:
         lets_talk()
         time.sleep(30)
-
-
-
